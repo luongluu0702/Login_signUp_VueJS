@@ -99,9 +99,11 @@
     </div>
 </template>
 <script>
+import { mapActions } from 'vuex'
 /* eslint-disable */
 import helper from '../helpers/utilities'
 export default {
+    name: 'signup',
     data () {
         return {
           user: {
@@ -183,6 +185,7 @@ export default {
         }
     },
     methods: {
+      ...mapActions(['addUser']),
       routerPageWithName(name){
         this.$router.push({name: name })
       },
@@ -234,9 +237,7 @@ export default {
           this.checkExist('username', 'listUser', 'Tên người dùng đã tồn tại')
         }
         if(isValid){
-          let listUser = localStorage.getItem('listUser') ? JSON.parse(localStorage.getItem('listUser')) :[]
-          listUser.push(this.user)
-          helper.pushLocalStorage(listUser, 'listUser')
+          this.addUser(this.user)
           this.$router.push({name: 'user' })
         }
       }

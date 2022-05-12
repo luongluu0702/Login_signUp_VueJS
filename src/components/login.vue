@@ -46,6 +46,7 @@ export default {
 
     }
   },
+  
   methods: {
     showSignUp () {
       this.$router.push({ name: 'signup' })
@@ -80,11 +81,12 @@ export default {
         })
         if(isValid){
           let listUser = JSON.parse(localStorage.getItem('listUser'))
+          console.log(listUser)
           let isCorrect = false
           let email = this.user.email
           let password = this.user.pwd
           listUser.forEach(function(item){
-            if(email== item.email && password == item.pwdSignUp){
+            if(email == item.email && password == item.pwdSignUp){
                 isCorrect = true
             }
           })

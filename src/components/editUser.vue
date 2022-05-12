@@ -73,8 +73,12 @@
 
 <script>
 /* eslint-disable */
+import { mapState, mapActions } from 'vuex'
 import helper from '../helpers/utilities'
 export default {
+    // computed: { 
+    //     ...mapState(['listUser']),
+    // },
     data() { 
         let listUser = JSON.parse(localStorage.getItem('listUser'))
         let index = JSON.parse(localStorage.getItem('index'))
@@ -132,6 +136,7 @@ export default {
         }
     },
     methods:{
+        ...mapActions(['editUser', 'listUser']),
         routerPageWithName(name){
         this.$router.push({name: name })
         },
@@ -154,16 +159,18 @@ export default {
               }
               })
             console.log(isValid)
+            
             if(isValid){
               let listUser = JSON.parse(localStorage.getItem('listUser'))
               let index = this.user.index
               let userEdit = listUser[index]
-              console.log(userEdit)
               inputElement.forEach((e)=>{
                 userEdit[e]= this.user[e]
               })
-              listUser.splice(index,1,userEdit)
-              helper.pushLocalStorage(listUser, 'listUser')
+              // console.log(listUser[index])
+              // listUser.splice(index,1,userEdit)
+              this.editUser({idUser: index, userEdited: userEdit})
+              // helper.pushLocalStorage(listUser, 'listUser')
               this.$router.push({name: 'user' })
             }
         }

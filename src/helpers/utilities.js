@@ -224,7 +224,8 @@ const convertToString= (variable) => JSON.stringify(variable)
 const addLocalStorage= (variable, keyword) => localStorage.setItem(keyword,variable)
 const getFieldName = (fieldName, keyLocal) => {
     let fieldNames= []
-    let arrFieldName = JSON.parse(localStorage.getItem(keyLocal))
+    
+    let arrFieldName = localStorage.getItem(keyLocal)? JSON.parse(localStorage.getItem(keyLocal)):[]
      arrFieldName.forEach(function(element){
         fieldNames.push(element[fieldName])
      });
@@ -237,7 +238,7 @@ const validateExist = (data, fieldName, keyLocal, msg)=>{
         error: false,
         msg:''
     }
-    let arrFieldName = JSON.parse(localStorage.getItem(keyLocal))
+    let arrFieldName = localStorage.getItem(keyLocal)? JSON.parse(localStorage.getItem(keyLocal)) :[] 
     arrFieldName.forEach(function(e){
       if(data && data===e[fieldName]){
           isExist = true
